@@ -4,12 +4,12 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import DocumentItem from '../DocumentItem/DocumentItem';
 import SideBar from '../SideBar/SideBar';
-import DocumentCreate from '../DocumentCreate/DocumentCreate';
+import DocumentView from '../DocumentView/DocumentView';
 
 const DocumentsList: React.FC = () => {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [documentOpen, setDocumentOpen] = useState<number | null>(null);
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['documents'],
     queryFn: getDocuments,
   });
@@ -18,10 +18,12 @@ const DocumentsList: React.FC = () => {
     return <p>Загрузка...</p>;
   }
 
+  if (isError) return <p>Ошибка</p>;
+
   return (
     <div>
       <SideBar isOpen={sideBarOpen} onClose={() => setSideBarOpen(false)}>
-        <DocumentCreate mode='view' id={documentOpen} onClose={() => setSideBarOpen(false)} />
+        <DocumentView onClose={() => setSideBarOpen(false)} id={documentOpen} />
       </SideBar>
       {data?.length ? (
         <ul className='flex flex-col gap-2'>
@@ -30,7 +32,7 @@ const DocumentsList: React.FC = () => {
               className='cursor-pointer'
               onClick={() => {
                 setSideBarOpen(true);
-                setDocumentOpen(item.id)
+                setDocumentOpen(item.id);
               }}
               key={item.id}
             >

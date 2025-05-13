@@ -21,11 +21,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <Providers>
-        <body className={`${inter.className} antialiased flex`}>
+        <body className={`${inter.className} antialiased flex overflow-hidden`}>
           <div className='w-[80px] min-h-screen h-full bg-[#D9D9D9]'></div>
           <div className='w-full'>
             <Header />
-            <main className='px-10 py-16'>{children}</main>
+            <main className='px-10 py-16 h-[calc(100vh-64px)] overflow-y-auto'>{children}</main>
           </div>
         </body>
       </Providers>
