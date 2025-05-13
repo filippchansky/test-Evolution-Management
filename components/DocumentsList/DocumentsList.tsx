@@ -25,6 +25,7 @@ const DocumentsList: React.FC = () => {
       <SideBar isOpen={sideBarOpen} onClose={() => setSideBarOpen(false)}>
         <DocumentView onClose={() => setSideBarOpen(false)} id={documentOpen} />
       </SideBar>
+      <h1 className='text-2xl font-medium mb-3'>Документы</h1>
       {data?.length ? (
         <ul className='flex flex-col gap-2'>
           {data.map((item) => (
@@ -42,7 +43,6 @@ const DocumentsList: React.FC = () => {
         </ul>
       ) : (
         <>
-          <h1 className='text-2xl font-medium'>Документы</h1>
           <p className='text-[18px] text-[#B3B3B3] font-medium'>Список пуст</p>
         </>
       )}
